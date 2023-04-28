@@ -7,6 +7,31 @@ public class Main {
 
     }
 
+    public static String howMuchILoveYou(int nb_petals) {
+        while (nb_petals > 6) {
+            nb_petals -= 5;
+        }
+        //your code here :)
+
+        switch (nb_petals) {
+            case 1:
+                return  "I love you";
+            case 2:
+                return  "a little";
+            case 3:
+                return  "a lot";
+            case 4:
+                return  "passionately";
+            case 5:
+                return  "madly";
+            case 6:
+                return  "not at all";
+            default:
+                return null;
+        }
+    }
+
+
     public static int findShort(String s) {
         List<String> sList = new ArrayList<>(Arrays.stream(s.split(" ")).toList());
         int small = sList.get(0).length();
