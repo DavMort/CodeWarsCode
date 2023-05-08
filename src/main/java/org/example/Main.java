@@ -21,7 +21,6 @@ public class Main {
                 char newNum = numbers[i];
                 numbers[i - 1] = newNum;
                 numbers[i] = old;
-
                 for (int k = numbers.length - 1; k > i; k--) {
                     if (numbers[k] > old && numbers[k] < newNum) {
                         numbers[i - 1] = numbers[k];
@@ -30,7 +29,6 @@ public class Main {
                         k = numbers.length - 1;
                     }
                 }
-
                 for (int j = numbers.length - 1; j > i; j--) {
                     if (numbers[j] < numbers[j - 1]) {
                         char smaller = numbers[j];
