@@ -1,15 +1,91 @@
 package org.example;
+import javax.print.DocFlavor;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println(pigIt("hey ho ho !"));
+    }
+    //Move the first letter of each word to the end of it, then add "ay" to the end of the word. Leave punctuation marks untouched.
+    public static String pigIt(String str) {
+        return Arrays.stream(str.split(" ")).map(s -> s.matches("[a-zA-Z]+") ? s.substring(1) + s.charAt(0) + "ay" : s).collect(Collectors.joining(" "));
+    }
+    public static long nextBiggerNumber(long n) {
+        char[] numbers = String.valueOf(n).toCharArray();
+        for (int i = numbers.length - 1; i > 0; i--) {
+            if (numbers[i] > numbers[i - 1]) {
+                char old = numbers[i - 1];
+                char newNum = numbers[i];
+                numbers[i - 1] = newNum;
+                numbers[i] = old;
 
+                for (int k = numbers.length - 1; k > i; k--) {
+                    if (numbers[k] > old && numbers[k] < newNum) {
+                        numbers[i - 1] = numbers[k];
+                        numbers [k] = newNum;
+                        newNum = numbers[i - 1];
+                        k = numbers.length - 1;
+                    }
+                }
+
+                for (int j = numbers.length - 1; j > i; j--) {
+                    if (numbers[j] < numbers[j - 1]) {
+                        char smaller = numbers[j];
+                        numbers[j] = numbers[j - 1];
+                        numbers[j - 1] = smaller;
+                        j = numbers.length;
+                    }
+                }
+                StringBuilder res = new StringBuilder();
+                for (char c : numbers) {
+                    res.append(c);
+                }
+                return Long.parseLong(res.toString());
+            }
+        }
+        return -1L;
+    }
+
+    public static int calculateYears(double principal, double interest,  double tax, double desired) {
+        int count = 0;
+        double taxx;
+        if (principal == desired) {
+            return 0;
+        }
+        do {
+            taxx = Math.round(principal * interest * tax);
+            principal = Math.round(principal * interest);
+            principal -= taxx;
+            count++;
+        } while (principal < desired);
+        return count;
+    }
+    public static int[] between(int a, int b) {
+        int[] res = new int[b - a + 1];
+        for (int i = 0; i < res.length; i++) {
+            res[i] = a;
+            a++;
+        }
+        return res;
+    }
+    public static String noSpace(final String x) {
+        return x.replace(" ", "");
+    }
+    public static long[] powersOfTwo(int n) {
+        long[] result = new long[n + 1];
+        result[0] = 1;
+        for (int i = 1; i < n; i++) {
+            result[i] = (long)i * 2;
+        }
+        return result;
     }
 
     public static String howMuchILoveYou(int nb_petals) {
         while (nb_petals > 6) {
-            nb_petals -= 5;
+            nb_petals -= 6;
         }
         //your code here :)
 
@@ -31,6 +107,28 @@ public class Main {
         }
     }
 
+    public int Liters(double time)  {
+        return (int)Math.floor(time * 0.5);
+    }
+
+    public static int TwiceAsOld(int dadYears, int sonYears){
+        //TODO: Add code here
+        int count = 0;
+        if ((dadYears / sonYears) > 2) {
+            do {
+                dadYears -= 1;
+                sonYears -= 1;
+                count++;
+            } while (dadYears / sonYears != 2);
+        } else {
+            do {
+                dadYears += 1;
+                sonYears += 1;
+                count++;
+            } while (dadYears / sonYears != 2);
+        }
+        return count;
+    }
 
     public static int findShort(String s) {
         List<String> sList = new ArrayList<>(Arrays.stream(s.split(" ")).toList());
