@@ -1,5 +1,7 @@
 package org.example;
+import javax.management.ObjectInstance;
 import javax.print.DocFlavor;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -9,6 +11,12 @@ public class Main {
     public static void main(String[] args) {
         System.out.println(pigIt("hey ho ho !"));
     }
+    //In this kata you will create a function that takes a list of non-negative integers and strings and returns a new list with the strings filtered out.
+    public static List<Object> filterList(final List<Object> list) {
+        return list.stream().map(o -> o instanceof Integer ? (Object)Integer.parseInt(o.toString()) : null).filter(Objects::nonNull).toList();
+        //return list.stream().filter(o -> o instanceof Integer).collect(Collectors.toList());
+    }
+
     //Move the first letter of each word to the end of it, then add "ay" to the end of the word. Leave punctuation marks untouched.
     public static String pigIt(String str) {
         return Arrays.stream(str.split(" ")).map(s -> s.matches("[a-zA-Z]+") ? s.substring(1) + s.charAt(0) + "ay" : s).collect(Collectors.joining(" "));
@@ -151,7 +159,6 @@ public class Main {
 
     public static String highAndLow(String numbers) {
         // Code here or
-        String[] sArr = numbers.split(" ");
         List<Integer> sList = new ArrayList<>(Arrays.stream(numbers.split(" ")).toList().stream().map(Integer::parseInt).toList());
         Collections.sort(sList);
         return String.format("%d %d", sList.get(sList.size() - 1), sList.get(0));
