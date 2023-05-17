@@ -4,6 +4,7 @@ import javax.print.DocFlavor;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
@@ -11,6 +12,29 @@ public class Main {
     public static void main(String[] args) {
         System.out.println(pigIt("hey ho ho !"));
     }
+
+    //Swap all characters from uppercase to lowercase and lowercase to uppercase in a string
+    public static String toAlternativeString(String string) {
+        return Arrays.stream(string.split("")).map(s -> s.matches("[a-z]+") ? s.toUpperCase() : s.toLowerCase()).collect(Collectors.joining());
+    }
+
+    public static String hoopCount(int n){
+        return n >= 10 ? "Great, now move on to tricks" : "Keep at it until you get it";
+    }
+
+    public static String reverseWords(final String original) {
+
+        return original.replaceAll(" ", "").length() > 0 ? Arrays.stream(original.split(" ")).map(s -> new StringBuilder(s).reverse().toString()).collect(Collectors.joining(" ")) : original;
+    }
+
+    public static boolean solution(String str, String ending) {
+        return str.endsWith(ending);
+    }
+
+    public String toJadenCae(String phrase) {
+        return phrase != null || phrase.equals("") ? Arrays.stream(phrase.split(" ")).map(s -> s.replace(s.charAt(0), s.substring(0, 1).toUpperCase().charAt(0))).collect(Collectors.joining(" ")).trim() : null;
+    }
+
     //In this kata you will create a function that takes a list of non-negative integers and strings and returns a new list with the strings filtered out.
     public static List<Object> filterList(final List<Object> list) {
         return list.stream().map(o -> o instanceof Integer ? (Object)Integer.parseInt(o.toString()) : null).filter(Objects::nonNull).toList();
