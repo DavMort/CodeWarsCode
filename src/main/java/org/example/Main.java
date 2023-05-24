@@ -10,7 +10,64 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(pigIt("hey ho ho !"));
+        sortDesc(12);
+    }
+
+    public class Node {
+        public Node left;
+        public Node right;
+        public int value;
+
+        public Node(Node l, Node r, int v) {
+            left = l;
+            right = r;
+            value = v;
+        }
+    }
+    public static List<Integer> treeByLevels(Node node) {
+        if (node == null) {
+            return null;
+        }
+        List<Integer> result = new ArrayList<>();
+        Queue<Node> nodes = new LinkedList<>();
+        nodes.add(node);
+        while (!nodes.isEmpty()) {
+            Node n = nodes.remove();
+            result.add(n.value);
+
+            if (n.left != null) {
+                nodes.add(n.left);
+            }
+            if (n.right != null) {
+                nodes.add(n.right);
+            }
+        }
+        return result;
+    }
+
+    public static boolean isSquare(int n) {
+        for (int i = 1; i < n; i++) {
+            if (i * i == n) {
+                return true;
+            }
+        }
+        return false;
+        //return Math.sqrt(n) % 1 == 0;
+    }
+
+    public static int sortDesc(final int num) {
+        String numString = String.valueOf(num);
+        String[] numArr = numString.split("");
+        for (int i = 1; i < numArr.length; i++) {
+            if (Integer.parseInt(numArr[i - 1]) < Integer.parseInt(numArr[i])) {
+                String temp = numArr[i - 1];
+                numArr[i - 1] = numArr[i];
+                numArr[i] = temp;
+                i = 0;
+            }
+        }
+        //Your code
+        return Integer.parseInt(String.join("", numArr));
     }
 
     //Swap all characters from uppercase to lowercase and lowercase to uppercase in a string
