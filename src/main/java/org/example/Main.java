@@ -1,17 +1,13 @@
 package org.example;
-import javax.management.ObjectInstance;
-import javax.print.DocFlavor;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
         sortDesc(12);
     }
+
+
 
     public class Node {
         public Node left;
@@ -34,7 +30,6 @@ public class Main {
         while (!nodes.isEmpty()) {
             Node n = nodes.remove();
             result.add(n.value);
-
             if (n.left != null) {
                 nodes.add(n.left);
             }
@@ -43,6 +38,18 @@ public class Main {
             }
         }
         return result;
+    }
+
+    public static String[] stringToArray(String s) {
+        //your code
+        return s.split(" " + ", ");
+    }
+
+    static int stray(int[] numbers) {
+        int[] n = Arrays.stream(numbers).sorted().toArray();
+        if (numbers[0] == numbers[1]) {
+            return numbers[numbers.length - 1];
+        } else return numbers[0];
     }
 
     public static boolean isSquare(int n) {
