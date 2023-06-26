@@ -1,16 +1,45 @@
 package org.example;
-import javax.management.ObjectInstance;
-import javax.print.DocFlavor;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
+// Long list of random solutions for CodeWars problems I have solved
+// Documentation on what problem they "solve" is lacking as I didn't think to add it on most of them.
 public class Main {
     public static void main(String[] args) {
-        sortDesc(12);
+        System.out.println(expressionsMatter(1, 2, 3));
+    }
+
+    public static int expressionsMatter(int a, int b, int c) {
+        int max = 0;
+        max = Math.max(Math.max(Math.max((a + b + c), ((a + b) * c)), (a * c) * b), (c + b) * a);
+        return max;
+    }
+
+    public static String expandedForm(int num) {
+        //your code here
+        StringBuilder result = new StringBuilder();
+        String temp = String.valueOf(num);
+        for (int i = 0; i < temp.length(); i++) {
+            if (temp.charAt(i) != '0') {
+                result.append(temp.charAt(i)).append("0".repeat(temp.length() - i - 1)).append(" + ");
+            }
+        }
+        return result.substring(0, result.length() - 3);
+    }
+
+    public static String order(String words) {
+        String[] wordArr = words.split(" ");
+        String[] sorted = new String[wordArr.length];
+
+        for (String s : wordArr) {
+            for (int i = 0; i < s.length(); i++) {
+                if (s.substring(i, i + 1).matches("[1-9]")) {
+                    int num = Integer.parseInt(s.substring(i, i + 1));
+                    sorted[num - 1] = s;
+                }
+            }
+        }
+        return String.join(" ", sorted);
     }
 
     public class Node {
