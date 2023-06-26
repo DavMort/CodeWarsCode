@@ -42,6 +42,8 @@ public class Main {
         return String.join(" ", sorted);
     }
 
+
+
     public class Node {
         public Node left;
         public Node right;
@@ -63,7 +65,6 @@ public class Main {
         while (!nodes.isEmpty()) {
             Node n = nodes.remove();
             result.add(n.value);
-
             if (n.left != null) {
                 nodes.add(n.left);
             }
@@ -72,6 +73,18 @@ public class Main {
             }
         }
         return result;
+    }
+
+    public static String[] stringToArray(String s) {
+        //your code
+        return s.split(" " + ", ");
+    }
+
+    static int stray(int[] numbers) {
+        int[] n = Arrays.stream(numbers).sorted().toArray();
+        if (numbers[0] == numbers[1]) {
+            return numbers[numbers.length - 1];
+        } else return numbers[0];
     }
 
     public static boolean isSquare(int n) {
