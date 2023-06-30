@@ -1,12 +1,150 @@
 package org.example;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 // Long list of random solutions for CodeWars problems I have solved
 // Documentation on what problem they "solve" is lacking as I didn't think to add it on most of them.
 public class Main {
     public static void main(String[] args) {
-        System.out.println(expressionsMatter(1, 2, 3));
+        String aaa = "abcde";
+        System.out.println(aaa.codePointAt(0));
+    }
+
+
+    // Return the word in a given string with the highest value (a = 1, b = 2, c = 3 etc..)
+    public static String high(String s) {
+        String result = "";
+        int score = 0;
+        String[] arr = s.split("");
+        for (String str : arr) {
+            int newScore = 0;
+            for (int i = 0; i < str.length(); i++) {
+                newScore += str.codePointAt(i) - 96;
+            }
+            if (newScore > score) {
+                score = newScore;
+                result = str;
+            }
+        }
+        return result;
+    }
+
+    //Return sum of all positive numbers in an array
+    public static int sum(int[] arr){
+        int sum = 0;
+        for (int i : arr) {
+            if (i > 0) {
+                sum += i;
+            }
+        }
+        return sum;
+    }
+
+    public static String camelCase(String input) {
+        return String.join(" ", input.split("((?=[A-Z]))"));
+    }
+
+    public static class Fighter {
+        public String name;
+        public int health, damagePerAttack;
+        public Fighter(String name, int health, int damagePerAttack) {
+            this.name = name;
+            this.health = health;
+            this.damagePerAttack = damagePerAttack;
+        }
+    }
+    public static String declareWinner(Fighter fighter1, Fighter fighter2, String firstAttacker) {
+        int count1 = 0;
+        int count2 = 0;
+        do {
+            fighter2.health -= fighter1.damagePerAttack;
+            count1++;
+        } while (fighter2.health > 0);
+        do {
+            fighter1.health -= fighter2.damagePerAttack;
+            count2++;
+        } while (fighter1.health > 0);
+        if (fighter1.name.equals(firstAttacker)) {
+            count2++;
+        } else {
+            count1++;
+        }
+        return count1 < count2 ? fighter1.name : fighter2.name;
+    }
+
+
+    // Take an integer n (n >= 0) and a digit d (0 <= d <= 9) as an integer.
+    // Square all numbers k (0 <= k <= n) between 0 and n.
+    // Count the numbers of digits d used in the writing of all the k**2.
+    // Return number of times int (d) is used in squared numbers of (n) starting from 0 to n.
+    public static int nbDig(int n, int d) {
+        int count = 0;
+        for (int i = 0; i <= n; i++) {
+            if (String.valueOf(i * i).contains(String.valueOf(d))) {
+                int length = String.valueOf(i * i).length() - String.valueOf(i * i).replaceAll(String.valueOf(d), "").length();
+                count += length;
+            }
+        }
+        return count;
+    }
+
+    // Square every digit of a number and concatenate them
+    // Example, if we run 9119 through the function, 811181 will come out, because 9^2 is 81 and 1^2 is 1. (81-1-1-81)
+    public static int squareDigits(int n) {
+        String[] temp = String.valueOf(n).split("");
+        StringBuilder res = new StringBuilder();
+        for (String s : temp) {
+            res.append(Integer.parseInt(s) * Integer.parseInt(s));
+        }
+        return Integer.parseInt(res.toString());
+    }
+
+    // Multiplying a given number by eight if it is an even number and by nine otherwise.
+    public static int simpleMultiplication(int n) {
+        if (n % 2 == 0) {
+            return n * 8;
+        }
+        return n * 9;
+        // Single line: return n % 2 == 0 ? n * 8 : n * 9;
+    }
+
+    // Very simple, given an integer or a floating-point number, find its opposite.
+    public static int opposite(int number) {
+        return number * -1;
+    }
+
+    // Given a list of numbers, return a fixed list so that the values increment by 1 for each index from the minimum value up to the maximum value (both included).
+    // example input 1, 3, 5, 7 -> output 1, 2, 3, 4, 5, 6, 7
+    public static int[] pipeFix(int[] numbers) {
+        int[] temp = new int[numbers[numbers.length - 1] - numbers[0] + 1];
+        temp[0] = numbers[0];
+        for (int i = 1; i < temp.length; i++) {
+            temp[i] = numbers[0] + i;
+        }
+        return temp;
+        // BETTER SOLUTION:
+        // return IntStream.rangeClosed(numbers[0], numbers[numbers.length - 1]).toArray();
+    }
+
+    // Write a function, persistence, that takes in a positive parameter num and returns its multiplicative persistence,
+    // which is the number of times you must multiply the digits in num until you reach a single digit.
+    public static int persistence(long n) {
+        if (n < 10) {
+            return 0;
+        }
+        int count = 0;
+        do {
+            long[] numArr = Arrays.stream(String.valueOf(n).split("")).mapToLong(Long::parseLong).toArray();
+            n = 1;
+            for (long l : numArr) {
+                n *= l;
+            }
+            count++;
+        } while (n >= 10);
+        return count;
     }
 
     public static int expressionsMatter(int a, int b, int c) {
